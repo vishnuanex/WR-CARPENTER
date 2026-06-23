@@ -15,13 +15,12 @@
         body {
             font-family: 'Times New Roman', serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #3b82f6 100%);
-            padding: 15px;
+            padding: 30px;
             min-height: 100vh;
-            margin: 0;
         }
         
         .form-container {
-            max-width: 1100px;
+            max-width: 1150px;
             margin: 0 auto;
             background: white;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
@@ -33,30 +32,23 @@
         
         .header {
             text-align: center;
-            padding: 20px 15px;
+            padding: 25px;
             background: linear-gradient(to right, #1e40af, #2563eb);
             color: white;
         }
         
         .paper {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 0;
-            padding: 20px;
-        }
-        
-        @media (min-width: 768px) {
-            .paper {
-                grid-template-columns: 1fr 1fr;
-                padding: 30px;
-            }
+            padding: 35px 30px 120px 30px;
         }
         
         th, td {
             border: 1px solid #1e40af;
-            padding: 8px 6px;
+            padding: 8px 10px;
             text-align: center;
-            font-size: 14px;
+            font-family: 'Times New Roman', serif;
         }
         
         th {
@@ -81,30 +73,21 @@
         }
         
         .right-panel {
-            border-left: 0;
-            padding-left: 0;
-            margin-top: 20px;
-        }
-        
-        @media (min-width: 768px) {
-            .right-panel {
-                border-left: 4px solid #1e40af;
-                padding-left: 40px;
-                margin-top: 0;
-            }
+            border-left: 4px solid #1e40af;
+            padding-left: 40px;
         }
         
         .short-input {
-            width: 100%;
+            width: 48%;
         }
         
         .signature-area {
             position: absolute;
-            bottom: 120px;
-            right: 40px;
-            width: 360px;
-            padding: 15px;
-            border: 2px solid #1e40af;
+            bottom: 135px;
+            right: 55px;
+            width: 390px;
+            padding: 18px;
+            border: 3px solid #1e40af;
             background: #f8fafc;
             text-align: left;
             z-index: 10;
@@ -113,7 +96,7 @@
         .signature-canvas {
             border: 2px dashed #1e40af;
             width: 100%;
-            height: 130px;
+            height: 125px;
             background: #fff;
             margin-top: 8px;
         }
@@ -125,30 +108,26 @@
         }
         
         .download-hidden { display: block; }
-        
-        table {
-            width: 100%;
-        }
     </style>
 </head>
 <body>
 
-    <div class="form-container" id="form-content">
+    <div class="form-container mx-auto" style="width: 1100px;" id="form-content">
         <!-- Header -->
         <div class="header">
-            <h1 class="text-2xl md:text-3xl font-bold">W.R. CARPENTER TRADING SARL - CONAKRY</h1>
-            <h2 class="text-xl md:text-2xl mt-2 tracking-wider">SHIPMENT LOADING</h2>
+            <h1 class="text-3xl font-bold">W.R. CARPENTER TRADING SARL - CONAKRY</h1>
+            <h2 class="text-2xl mt-2 tracking-wider">SHIPMENT LOADING</h2>
         </div>
 
         <div class="paper">
             <!-- Left Side -->
             <div>
-                <div class="flex flex-col md:flex-row gap-6 mb-8 items-end">
-                    <div class="w-full md:w-auto">
+                <div class="flex gap-8 mb-8 items-end">
+                    <div>
                         <label class="block text-sm font-bold mb-1 text-[#1e40af]">DATE</label>
-                        <input type="date" id="date" class="input-field w-full md:w-64">
+                        <input type="date" id="date" class="input-field w-64">
                     </div>
-                    <div class="flex-1 w-full">
+                    <div class="flex-1">
                         <label class="block text-sm font-bold mb-1 text-[#1e40af]">CUSTOMER</label>
                         <input type="text" id="customer" class="input-field" placeholder="Enter Customer Name">
                     </div>
@@ -157,10 +136,10 @@
                 <table id="weighing-table" class="w-full">
                     <thead>
                         <tr>
-                            <th class="w-12 md:w-16">SET</th>
-                            <th class="w-24 md:w-28">NO OF BAGS</th>
-                            <th class="w-28 md:w-32">WEIGHT KGS</th>
-                            <th class="w-28 md:w-32">AVG WEIGHT<br>PER BAG</th>
+                            <th class="w-16">SET</th>
+                            <th class="w-28">NO OF BAGS</th>
+                            <th class="w-32">WEIGHT KGS</th>
+                            <th class="w-32">AVG WEIGHT<br>PER BAG</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -168,10 +147,10 @@
 
                 <table class="mt-3 w-full">
                     <tr class="total-row">
-                        <td class="w-12 md:w-16">TOTAL</td>
-                        <td id="total-bags" class="w-24 md:w-28"></td>
-                        <td id="total-weight" class="w-28 md:w-32"></td>
-                        <td id="total-avg" class="w-28 md:w-32"></td>
+                        <td class="w-16">TOTAL</td>
+                        <td id="total-bags" class="w-28"></td>
+                        <td id="total-weight" class="w-32"></td>
+                        <td id="total-avg" class="w-32"></td>
                     </tr>
                 </table>
             </div>
@@ -191,12 +170,12 @@
             </div>
         </div>
 
-        <!-- Supervisor Signature Area -->
+        <!-- Supervisor Signature - Parallel to TOTAL -->
         <div class="signature-area">
             <label class="block text-sm font-bold mb-2 text-[#1e40af]">WRC SUPERVISOR NAME &amp; SIGNATURE</label>
             <input type="text" id="supervisor-name" class="input-field" placeholder="Supervisor Full Name">
-            <div class="mt-4 text-sm font-medium text-[#1e40af]">Signature:</div>
-            <canvas id="signature-canvas" class="signature-canvas" width="340" height="130"></canvas>
+            <div class="mt-3 text-sm font-medium text-[#1e40af]">Signature:</div>
+            <canvas id="signature-canvas" class="signature-canvas" width="360" height="125"></canvas>
             
             <div class="download-hidden flex gap-3 mt-4">
                 <button onclick="clearSignature()" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded">Clear</button>
@@ -211,13 +190,11 @@
     </div>
 
     <!-- Download Buttons -->
-    <div class="text-center mt-8 flex flex-col sm:flex-row justify-center gap-4">
-        <button onclick="generateAndSharePDF()" 
-                class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 rounded-2xl text-lg font-bold shadow-xl">
+    <div class="text-center mt-10 flex justify-center gap-8">
+        <button onclick="generateAndSharePDF()" class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-12 py-4 rounded-2xl text-lg font-bold shadow-xl">
             <i class="fas fa-file-pdf"></i> Download PDF
         </button>
-        <button onclick="generateAndShareJPEG()" 
-                class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-10 py-4 rounded-2xl text-lg font-bold shadow-xl">
+        <button onclick="generateAndShareJPEG()" class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-12 py-4 rounded-2xl text-lg font-bold shadow-xl">
             <i class="fas fa-image"></i> Download JPEG
         </button>
     </div>
@@ -314,7 +291,13 @@
             
             document.querySelectorAll('.download-hidden').forEach(el => el.style.display = 'none');
             
-            const canvasImg = await html2canvas(content, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+            const canvasImg = await html2canvas(content, { 
+                scale: 2.5, 
+                useCORS: true, 
+                backgroundColor: '#ffffff',
+                logging: false
+            });
+            
             doc.addImage(canvasImg.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0, 1100, 830);
             doc.save(`WRC_Shipment_${new Date().toISOString().slice(0,10)}.pdf`);
             
@@ -326,7 +309,13 @@
             const content = document.getElementById('form-content');
             document.querySelectorAll('.download-hidden').forEach(el => el.style.display = 'none');
             
-            const canvasImg = await html2canvas(content, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+            const canvasImg = await html2canvas(content, { 
+                scale: 2.5, 
+                useCORS: true, 
+                backgroundColor: '#ffffff',
+                logging: false
+            });
+            
             const link = document.createElement('a');
             link.href = canvasImg.toDataURL('image/jpeg', 0.98);
             link.download = `WRC_Shipment_${new Date().toISOString().slice(0,10)}.jpg`;
