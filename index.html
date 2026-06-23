@@ -6,7 +6,6 @@
     <title>W.R. CARPENTER TRADING SARL - CONAKRY | Shipment Loading</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
@@ -20,7 +19,7 @@
         }
         
         .form-container {
-            max-width: 1150px;
+            max-width: 1160px;
             margin: 0 auto;
             background: white;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
@@ -28,11 +27,12 @@
             border-radius: 12px;
             overflow: hidden;
             position: relative;
+            min-height: 920px;
         }
         
         .header {
             text-align: center;
-            padding: 25px;
+            padding: 35px 20px 30px;
             background: linear-gradient(to right, #1e40af, #2563eb);
             color: white;
         }
@@ -41,14 +41,14 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
-            padding: 35px;
+            padding: 40px 50px;
         }
         
         th, td {
             border: 1px solid #1e40af;
-            padding: 10px 8px;
+            padding: 12px 8px;
             text-align: center;
-            font-size: 15px;
+            font-size: 16px;
         }
         
         th {
@@ -59,44 +59,46 @@
         
         .input-field {
             width: 100%;
-            padding: 12px 10px;
+            padding: 14px 12px;
             border: 2px solid #1e40af;
-            font-size: 16px;
+            font-size: 16.5px;
             text-align: center;
             border-radius: 4px;
-            height: 42px;
+            height: 54px;
+            box-sizing: border-box;
         }
         
-        .input-field:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        .label {
+            display: block;
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-size: 15px;
         }
         
         .right-panel {
             border-left: 4px solid #1e40af;
-            padding-left: 45px;
+            padding-left: 60px;
         }
         
-        .short-input {
-            width: 48%;
+        .field-group {
+            margin-bottom: 26px;
         }
         
         .signature-area {
             position: absolute;
-            bottom: 130px;
-            right: 65px;
+            bottom: 150px;
+            right: 75px;
             width: 390px;
-            padding: 18px;
+            padding: 20px;
             border: 2px solid #1e40af;
             background: #f8fafc;
-            text-align: left;
-            z-index: 10;
         }
         
         .signature-canvas {
             border: 2px dashed #1e40af;
             width: 100%;
-            height: 135px;
+            height: 140px;
             background: #fff;
             margin-top: 10px;
         }
@@ -112,8 +114,7 @@
 </head>
 <body>
 
-    <div class="form-container mx-auto" style="width: 1120px;" id="form-content">
-        <!-- Header -->
+    <div class="form-container mx-auto" style="width: 1160px;" id="form-content">
         <div class="header">
             <h1 class="text-3xl font-bold">W.R. CARPENTER TRADING SARL - CONAKRY</h1>
             <h2 class="text-2xl mt-2 tracking-wider">SHIPMENT LOADING</h2>
@@ -123,12 +124,12 @@
             <!-- Left Side -->
             <div>
                 <div class="flex gap-8 mb-8 items-end">
-                    <div>
-                        <label class="block text-sm font-bold mb-1 text-[#1e40af]">DATE</label>
+                    <div class="field-group">
+                        <label class="label">DATE</label>
                         <input type="date" id="date" class="input-field w-64">
                     </div>
-                    <div class="flex-1">
-                        <label class="block text-sm font-bold mb-1 text-[#1e40af]">CUSTOMER</label>
+                    <div class="flex-1 field-group">
+                        <label class="label">CUSTOMER</label>
                         <input type="text" id="customer" class="input-field" placeholder="Enter Customer Name">
                     </div>
                 </div>
@@ -145,7 +146,7 @@
                     <tbody></tbody>
                 </table>
 
-                <table class="mt-3 w-full">
+                <table class="mt-4 w-full">
                     <tr class="total-row">
                         <td class="w-16">TOTAL</td>
                         <td id="total-bags" class="w-28"></td>
@@ -157,45 +158,61 @@
 
             <!-- Right Side -->
             <div class="right-panel">
-                <div class="grid grid-cols-1 gap-6">
-                    <div><label class="block text-sm font-bold mb-1 text-[#1e40af]">Container Number:</label><input type="text" id="container" class="input-field short-input"></div>
-                    <div><label class="block text-sm font-bold mb-1 text-[#1e40af]">Seal Number:</label><input type="text" id="seal" class="input-field short-input"></div>
-                    <div><label class="block text-sm font-bold mb-1 text-[#1e40af]">Truck Number:</label><input type="text" id="truck" class="input-field short-input"></div>
-                    <div><label class="block text-sm font-bold mb-1 text-[#1e40af]">Origin:</label><input type="text" id="origin" class="input-field short-input"></div>
-                    <div><label class="block text-sm font-bold mb-1 text-[#1e40af]">POD:</label><input type="text" id="pod" class="input-field short-input"></div>
-                    <div><label class="block text-sm font-bold mb-1 text-[#1e40af]">Way Bill Number:</label><input type="text" id="waybill" class="input-field short-input"></div>
-                    <div><label class="block text-sm font-bold mb-1 text-[#1e40af]">Booking Ref:</label><input type="text" id="booking" class="input-field short-input"></div>
-                    <div><label class="block text-sm font-bold mb-1 text-[#1e40af]">Moisture:</label><input type="text" id="moisture" class="input-field short-input"></div>
+                <div class="field-group">
+                    <label class="label">Container Number:</label>
+                    <input type="text" id="container" class="input-field">
+                </div>
+                <div class="field-group">
+                    <label class="label">Seal Number:</label>
+                    <input type="text" id="seal" class="input-field">
+                </div>
+                <div class="field-group">
+                    <label class="label">Truck Number:</label>
+                    <input type="text" id="truck" class="input-field">
+                </div>
+                <div class="field-group">
+                    <label class="label">Origin:</label>
+                    <input type="text" id="origin" class="input-field">
+                </div>
+                <div class="field-group">
+                    <label class="label">POD:</label>
+                    <input type="text" id="pod" class="input-field">
+                </div>
+                <div class="field-group">
+                    <label class="label">Way Bill Number:</label>
+                    <input type="text" id="waybill" class="input-field">
+                </div>
+                <div class="field-group">
+                    <label class="label">Booking Ref:</label>
+                    <input type="text" id="booking" class="input-field">
+                </div>
+                <div class="field-group">
+                    <label class="label">Moisture:</label>
+                    <input type="text" id="moisture" class="input-field">
                 </div>
             </div>
         </div>
 
-        <!-- Supervisor Signature Area - Parallel to TOTAL -->
+        <!-- Signature -->
         <div class="signature-area">
-            <label class="block text-sm font-bold mb-2 text-[#1e40af]">WRC SUPERVISOR NAME &amp; SIGNATURE</label>
+            <label class="label">WRC SUPERVISOR NAME & SIGNATURE</label>
             <input type="text" id="supervisor-name" class="input-field" placeholder="Supervisor Full Name">
             <div class="mt-4 text-sm font-medium text-[#1e40af]">Signature:</div>
-            <canvas id="signature-canvas" class="signature-canvas" width="370" height="135"></canvas>
-            
+            <canvas id="signature-canvas" class="signature-canvas" width="370" height="140"></canvas>
             <div class="download-hidden flex gap-3 mt-4">
                 <button onclick="clearSignature()" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded">Clear</button>
                 <button onclick="uploadSignature()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded">Upload</button>
             </div>
         </div>
 
-        <!-- Footer -->
         <div class="text-center py-8 border-t-4 border-[#1e40af] text-[#1e40af] font-semibold bg-[#f0f9ff]">
             W.R. CARPENTER TRADING SARL - CONAKRY • SHIPMENT LOADING FORM
         </div>
     </div>
 
-    <!-- Download Buttons -->
-    <div class="text-center mt-10 flex justify-center gap-8">
-        <button onclick="generateAndSharePDF()" class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-12 py-4 rounded-2xl text-lg font-bold shadow-xl">
-            <i class="fas fa-file-pdf"></i> Download PDF
-        </button>
-        <button onclick="generateAndShareJPEG()" class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-12 py-4 rounded-2xl text-lg font-bold shadow-xl">
-            <i class="fas fa-image"></i> Download JPEG
+    <div class="text-center mt-12">
+        <button onclick="generateAndSharePNG()" class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-14 py-6 rounded-2xl text-xl font-bold shadow-2xl">
+            <i class="fas fa-image"></i> Download PNG for WhatsApp
         </button>
     </div>
 
@@ -242,7 +259,6 @@
             canvas = document.getElementById('signature-canvas');
             ctx = canvas.getContext('2d');
             ctx.lineWidth = 3; ctx.lineJoin = ctx.lineCap = 'round'; ctx.strokeStyle = '#1e40af';
-            
             let drawing = false;
             const start = (e) => { drawing = true; draw(e); };
             const drawFn = (e) => {
@@ -262,21 +278,16 @@
         }
 
         window.clearSignature = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
         window.uploadSignature = () => {
             const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
+            input.type = 'file'; input.accept = 'image/*';
             input.onchange = e => {
                 const file = e.target.files[0];
                 if (!file) return;
                 const reader = new FileReader();
                 reader.onload = ev => {
                     const img = new Image();
-                    img.onload = () => {
-                        ctx.clearRect(0,0,canvas.width,canvas.height);
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    };
+                    img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                     img.src = ev.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -284,33 +295,42 @@
             input.click();
         };
 
-        async function generateAndSharePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ orientation: "landscape", unit: "px", format: [1120, 860] });
-            const content = document.getElementById('form-content');
+        async function captureForm() {
+            const original = document.getElementById('form-content');
+            const clone = original.cloneNode(true);
             
-            document.querySelectorAll('.download-hidden').forEach(el => el.style.display = 'none');
-            
-            const canvasImg = await html2canvas(content, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
-            doc.addImage(canvasImg.toDataURL('image/jpeg', 1.0), 'JPEG', 0, 0, 1120, 860);
-            doc.save(`WRC_Shipment_${new Date().toISOString().slice(0,10)}.pdf`);
-            
-            document.querySelectorAll('.download-hidden').forEach(el => el.style.display = 'block');
-            alert("✅ PDF Downloaded successfully!");
+            clone.querySelectorAll('input').forEach(input => {
+                const value = input.value || '';
+                const div = document.createElement('div');
+                div.style.cssText = input.style.cssText + '; border: 2px solid #1e40af; padding: 14px 12px; min-height: 54px; display: flex; align-items: center; justify-content: center; font-size: 16.5px; background: white;';
+                div.textContent = value;
+                input.parentNode.replaceChild(div, input);
+            });
+
+            clone.style.position = 'absolute';
+            clone.style.left = '-9999px';
+            document.body.appendChild(clone);
+
+            const canvasImg = await html2canvas(clone, {
+                scale: 3.2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false
+            });
+
+            document.body.removeChild(clone);
+            return canvasImg;
         }
 
-        async function generateAndShareJPEG() {
-            const content = document.getElementById('form-content');
+        async function generateAndSharePNG() {
             document.querySelectorAll('.download-hidden').forEach(el => el.style.display = 'none');
-            
-            const canvasImg = await html2canvas(content, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+            const canvasImg = await captureForm();
             const link = document.createElement('a');
-            link.href = canvasImg.toDataURL('image/jpeg', 0.98);
-            link.download = `WRC_Shipment_${new Date().toISOString().slice(0,10)}.jpg`;
+            link.href = canvasImg.toDataURL('image/png');
+            link.download = `WRC_Shipment_${new Date().toISOString().slice(0,10)}.png`;
             link.click();
-            
             document.querySelectorAll('.download-hidden').forEach(el => el.style.display = 'block');
-            alert("✅ JPEG Downloaded successfully!");
+            alert("✅ PNG Downloaded Successfully!");
         }
 
         window.onload = () => {
