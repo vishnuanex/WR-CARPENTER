@@ -27,7 +27,7 @@
             border-radius: 12px;
             overflow: hidden;
             position: relative;
-            min-height: 920px;
+            min-height: 950px;
         }
         
         .header {
@@ -82,12 +82,27 @@
         }
         
         .field-group {
-            margin-bottom: 26px;
+            margin-bottom: 24px;
+        }
+        
+        .moisture-field {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .total-info {
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px solid #1e40af;
+            background: #f0f9ff;
+            font-size: 16.5px;
+            line-height: 1.8;
         }
         
         .signature-area {
             position: absolute;
-            bottom: 150px;
+            bottom: 160px;
             right: 75px;
             width: 390px;
             padding: 20px;
@@ -101,12 +116,6 @@
             height: 140px;
             background: #fff;
             margin-top: 10px;
-        }
-        
-        .total-row {
-            background-color: #dbeafe;
-            font-weight: bold;
-            color: #1e40af;
         }
         
         .download-hidden { display: block; }
@@ -158,44 +167,34 @@
 
             <!-- Right Side -->
             <div class="right-panel">
-                <div class="field-group">
-                    <label class="label">Container Number:</label>
-                    <input type="text" id="container" class="input-field">
-                </div>
-                <div class="field-group">
-                    <label class="label">Seal Number:</label>
-                    <input type="text" id="seal" class="input-field">
-                </div>
-                <div class="field-group">
-                    <label class="label">Truck Number:</label>
-                    <input type="text" id="truck" class="input-field">
-                </div>
-                <div class="field-group">
-                    <label class="label">Origin:</label>
-                    <input type="text" id="origin" class="input-field">
-                </div>
-                <div class="field-group">
-                    <label class="label">POD:</label>
-                    <input type="text" id="pod" class="input-field">
-                </div>
-                <div class="field-group">
-                    <label class="label">Way Bill Number:</label>
-                    <input type="text" id="waybill" class="input-field">
-                </div>
-                <div class="field-group">
-                    <label class="label">Booking Ref:</label>
-                    <input type="text" id="booking" class="input-field">
-                </div>
+                <div class="field-group"><label class="label">Container Number:</label><input type="text" id="container" class="input-field"></div>
+                <div class="field-group"><label class="label">Seal Number:</label><input type="text" id="seal" class="input-field"></div>
+                <div class="field-group"><label class="label">Truck Number:</label><input type="text" id="truck" class="input-field"></div>
+                <div class="field-group"><label class="label">Origin:</label><input type="text" id="origin" class="input-field"></div>
+                <div class="field-group"><label class="label">POD:</label><input type="text" id="pod" class="input-field"></div>
+                <div class="field-group"><label class="label">Way Bill Number:</label><input type="text" id="waybill" class="input-field"></div>
+                <div class="field-group"><label class="label">Booking Ref:</label><input type="text" id="booking" class="input-field"></div>
+                
                 <div class="field-group">
                     <label class="label">Moisture:</label>
-                    <input type="text" id="moisture" class="input-field">
+                    <div class="moisture-field">
+                        <input type="text" id="moisture" class="input-field" style="width: 140px;" placeholder="12.5">
+                        <span class="text-2xl font-bold text-[#1e40af]">%</span>
+                    </div>
+                </div>
+
+                <div class="total-info">
+                    <div><strong>Total Number of Bags :</strong> <span id="display-total-bags">0</span></div>
+                    <div><strong>Total Gross Weight in KG :</strong> <span id="display-total-weight">0</span></div>
+                    <div><strong>Total Net Weight in KG :</strong> <span id="display-net-weight">0</span></div>
+                    <div><strong>Total Average Weight per Bag :</strong> <span id="display-total-avg">0</span> KG</div>
                 </div>
             </div>
         </div>
 
         <!-- Signature -->
         <div class="signature-area">
-            <label class="label">WRC SUPERVISOR NAME & SIGNATURE</label>
+            <label class="label">WRC SUPERVISOR NAME &amp; SIGNATURE</label>
             <input type="text" id="supervisor-name" class="input-field" placeholder="Supervisor Full Name">
             <div class="mt-4 text-sm font-medium text-[#1e40af]">Signature:</div>
             <canvas id="signature-canvas" class="signature-canvas" width="370" height="140"></canvas>
@@ -211,8 +210,8 @@
     </div>
 
     <div class="text-center mt-12">
-        <button onclick="generateAndSharePNG()" class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-14 py-6 rounded-2xl text-xl font-bold shadow-2xl">
-            <i class="fas fa-image"></i> Download PNG for WhatsApp
+        <button onclick="generateAndSharePNG()" class="flex items-center gap-3 bg-blue-700 hover:bg-blue-800 text-white px-16 py-6 rounded-2xl text-xl font-bold shadow-2xl">
+            <i class="fas fa-download"></i> Download High Quality PNG
         </button>
     </div>
 
@@ -249,16 +248,25 @@
             let totalBags = 0, totalWeight = 0;
             document.querySelectorAll('.bags-input').forEach(i => totalBags += parseFloat(i.value)||0);
             document.querySelectorAll('.weight-input').forEach(i => totalWeight += parseFloat(i.value)||0);
-            const avg = totalBags > 0 ? (totalWeight / totalBags).toFixed(2) : '';
+            
+            const avg = totalBags > 0 ? (totalWeight / totalBags) : 0;
+            const netWeight = totalWeight - totalBags;
+
             document.getElementById('total-bags').textContent = totalBags || '';
             document.getElementById('total-weight').textContent = totalWeight ? Math.round(totalWeight) : '';
-            document.getElementById('total-avg').textContent = avg;
+            document.getElementById('total-avg').textContent = avg.toFixed(2);
+
+            document.getElementById('display-total-bags').textContent = totalBags || 0;
+            document.getElementById('display-total-weight').textContent = totalWeight ? Math.round(totalWeight) : 0;
+            document.getElementById('display-net-weight').textContent = netWeight ? Math.round(netWeight) : 0;
+            document.getElementById('display-total-avg').textContent = avg.toFixed(2);
         };
 
         function initSignature() {
             canvas = document.getElementById('signature-canvas');
             ctx = canvas.getContext('2d');
             ctx.lineWidth = 3; ctx.lineJoin = ctx.lineCap = 'round'; ctx.strokeStyle = '#1e40af';
+            
             let drawing = false;
             const start = (e) => { drawing = true; draw(e); };
             const drawFn = (e) => {
@@ -287,7 +295,10 @@
                 const reader = new FileReader();
                 reader.onload = ev => {
                     const img = new Image();
-                    img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    img.onload = () => {
+                        ctx.clearRect(0,0,canvas.width,canvas.height);
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    };
                     img.src = ev.target.result;
                 };
                 reader.readAsDataURL(file);
@@ -299,6 +310,7 @@
             const original = document.getElementById('form-content');
             const clone = original.cloneNode(true);
             
+            // Replace inputs with text
             clone.querySelectorAll('input').forEach(input => {
                 const value = input.value || '';
                 const div = document.createElement('div');
@@ -307,13 +319,24 @@
                 input.parentNode.replaceChild(div, input);
             });
 
+            // Handle signature
+            const originalCanvas = document.getElementById('signature-canvas');
+            const cloneCanvas = clone.querySelector('#signature-canvas');
+            if (originalCanvas && cloneCanvas) {
+                const dataURL = originalCanvas.toDataURL('image/png');
+                const img = document.createElement('img');
+                img.src = dataURL;
+                img.style.cssText = 'width:100%; height:140px; border:2px dashed #1e40af;';
+                cloneCanvas.parentNode.replaceChild(img, cloneCanvas);
+            }
+
             clone.style.position = 'absolute';
             clone.style.left = '-9999px';
             document.body.appendChild(clone);
 
-            const canvasImg = await html2canvas(clone, {
-                scale: 3.2,
-                useCORS: true,
+            const canvasImg = await html2canvas(clone, { 
+                scale: 4.0,           // High definition
+                useCORS: true, 
                 backgroundColor: '#ffffff',
                 logging: false
             });
@@ -330,7 +353,7 @@
             link.download = `WRC_Shipment_${new Date().toISOString().slice(0,10)}.png`;
             link.click();
             document.querySelectorAll('.download-hidden').forEach(el => el.style.display = 'block');
-            alert("✅ PNG Downloaded Successfully!");
+            alert("✅ High Quality PNG Downloaded!");
         }
 
         window.onload = () => {
